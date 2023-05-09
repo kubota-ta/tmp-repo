@@ -1,0 +1,24 @@
+Version: "2012-10-17"
+
+Statement:
+  - Effect: "Allow"
+    Action:
+      # AMIのRW
+      - "ec2:CreateImage"
+      - "ec2:DeregisterImage"
+      - "ec2:DescribeImages"
+      - "ec2:DescribeImageAttribute"
+      # LaunchTemplateVersionのRW
+      - "ec2:CreateLaunchTemplateVersion"
+      - "ec2:DeleteLaunchTemplateVersions"
+      - "ec2:ModifyLaunchTemplate"
+      - "ec2:DescribeLaunchTemplateVersions"
+      - "ec2:DescribeLaunchTemplates"
+      # 作業対象の情報取得
+      - "ec2:DescribeInstances"
+      - "ec2:DescribeInstanceAttribute"
+      - "ec2:DescribeInstanceStatus"
+      # タグのRW
+      - "ec2:CreateTags"
+      - "ec2:DeleteTags"
+    Resource: "*"

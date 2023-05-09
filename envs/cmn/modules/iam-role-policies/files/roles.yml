@@ -1,0 +1,17 @@
+## YAML dummy
+dummy: []
+
+## デプロイサーバーの例
+#デプロイと各種管理操作を行う
+#deploy:
+#  - codedeploy_operator
+#  - rds_backup
+#  - elasticache_backup
+#  - cloudfront_invalidation
+#  - terraform_operator
+
+## WEBサーバーの例
+#CodeDeploy agent が動いていて、S3へログ転送を行う
+#web:
+#  - codedeploy_agent
+#  - log_s3_agent

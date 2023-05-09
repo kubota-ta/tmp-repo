@@ -1,0 +1,12 @@
+Version: "2012-10-17"
+
+Statement:
+  - Effect: "Allow"
+    Action:
+      # InvalidationのRW
+      - "cloudfront:CreateInvalidation"
+      - "cloudfront:GetInvalidation"
+      - "cloudfront:ListInvalidations"
+      # 作業対象の情報取得
+      - "cloudfront:ListDistributions"
+    Resource: "*"

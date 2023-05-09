@@ -1,0 +1,27 @@
+Version: "2012-10-17"
+
+Statement:
+  - Effect: "Allow"
+    Action:
+      # SnapshotのRW
+      - "rds:CopyDBClusterSnapshot"
+      - "rds:CopyDBSnapshot"
+      - "rds:CreateDBClusterSnapshot"
+      - "rds:CreateDBSnapshot"
+      - "rds:DeleteDBClusterSnapshot"
+      - "rds:DeleteDBSnapshot"
+      - "rds:DescribeDBClusterSnapshotAttributes"
+      - "rds:DescribeDBClusterSnapshots"
+      - "rds:DescribeDBSnapshotAttributes"
+      - "rds:DescribeDBSnapshots"
+      - "rds:ModifyDBClusterSnapshotAttribute"
+      - "rds:ModifyDBSnapshot"
+      - "rds:ModifyDBSnapshotAttribute"
+      # 作業対象の情報取得
+      - "rds:DescribeDBClusters"
+      - "rds:DescribeDBInstances"
+      # タグのRW
+      - "rds:AddTagsToResource"
+      - "rds:ListTagsForResource"
+      - "rds:RemoveTagsFromResource"
+    Resource: "*"

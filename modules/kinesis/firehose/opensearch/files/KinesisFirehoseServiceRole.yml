@@ -1,0 +1,149 @@
+AssumeRole: {
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "firehose.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+
+Policy: {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "s3:AbortMultipartUpload",
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:PutObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::${s3_bucket_name}",
+                "arn:aws:s3:::${s3_bucket_name}/*"
+            ]
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "lambda:InvokeFunction",
+                "lambda:GetFunctionConfiguration"
+            ],
+            "Resource": "${lambda_function}"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "kms:GenerateDataKey",
+                "kms:Decrypt"
+            ],
+            "Resource": [
+                "arn:aws:kms:ap-northeast-1:${aws_id}:key/%FIREHOSE_POLICY_TEMPLATE_PLACEHOLDER%"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "kms:ViaService": "s3.ap-northeast-1.amazonaws.com"
+                },
+                "StringLike": {
+                    "kms:EncryptionContext:aws:s3:arn": [
+                        "arn:aws:s3:::%FIREHOSE_POLICY_TEMPLATE_PLACEHOLDER%/*",
+                        "arn:aws:s3:::%FIREHOSE_POLICY_TEMPLATE_PLACEHOLDER%"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeVpcs",
+                "ec2:DescribeVpcAttribute",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:CreateNetworkInterface",
+                "ec2:CreateNetworkInterfacePermission",
+                "ec2:DeleteNetworkInterface"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "es:DescribeElasticsearchDomain",
+                "es:DescribeElasticsearchDomains",
+                "es:DescribeElasticsearchDomainConfig",
+                "es:ESHttpPost",
+                "es:ESHttpPut"
+            ],
+            "Resource": [
+                "${es_arn}",
+                "${es_arn}/*"
+            ]
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "es:ESHttpGet"
+            ],
+            "Resource": [
+                "${es_arn}/_all/_settings",
+                "${es_arn}/_cluster/stats",
+                "${es_arn}/${es_index}/_mapping/%FIREHOSE_POLICY_TEMPLATE_PLACEHOLDER%",
+                "${es_arn}/_nodes",
+                "${es_arn}/_nodes/*/stats",
+                "${es_arn}/_stats",
+                "${es_arn}/${es_index}/_stats"
+            ]
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "logs:PutLogEvents"
+            ],
+            "Resource": [
+                "arn:aws:logs:ap-northeast-1:${aws_id}:log-group:/aws/kinesisfirehose/${stream_name}:log-stream:*",
+                "arn:aws:logs:ap-northeast-1:${aws_id}:log-group:%FIREHOSE_POLICY_TEMPLATE_PLACEHOLDER%:log-stream:*"
+            ]
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "kinesis:DescribeStream",
+                "kinesis:GetShardIterator",
+                "kinesis:GetRecords",
+                "kinesis:ListShards"
+            ],
+            "Resource": "arn:aws:kinesis:ap-northeast-1:${aws_id}:stream/%FIREHOSE_POLICY_TEMPLATE_PLACEHOLDER%"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "kms:Decrypt"
+            ],
+            "Resource": [
+                "arn:aws:kms:ap-northeast-1:${aws_id}:key/%FIREHOSE_POLICY_TEMPLATE_PLACEHOLDER%"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "kms:ViaService": "kinesis.ap-northeast-1.amazonaws.com"
+                },
+                "StringLike": {
+                    "kms:EncryptionContext:aws:kinesis:arn": "arn:aws:kinesis:ap-northeast-1:${aws_id}:stream/%FIREHOSE_POLICY_TEMPLATE_PLACEHOLDER%"
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+AssumeRole: {
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "redshift.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+
+ManagedPolicies:
+  - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+  - arn:aws:iam::aws:policy/AWSGlueConsoleFullAccess
+  # 集計データのinsertに必要
+  - arn:aws:iam::aws:policy/AmazonS3FullAccess
+
+Policy: {}

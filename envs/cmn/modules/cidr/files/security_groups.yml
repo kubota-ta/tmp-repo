@@ -1,0 +1,42 @@
+#
+# セキュリティグループ定義ファイル
+#
+# CIDR block の利用グループを定義をする
+# 基本的にはセキュリティグループやWAF、ACLの名前と同じグループ名とする
+#
+
+#===========================================================
+# Use in Security Group
+#===========================================================
+trust:
+  - exnoa
+
+trust-system:
+  - pf-johren
+  - pf-nutaku
+
+
+#===========================================================
+# Use in WAF(IP Set)
+#===========================================================
+waf-trust:
+  - exnoa
+
+waf-trust-system:
+  - exnoa
+  - pf-johren
+  - pf-nutaku
+
+waf-trust-review:
+  - exnoa
+  - pf-johren
+  - pf-nutaku
+  - review-digital-hearts
+
+
+#===========================================================
+# Use in IAM User
+#===========================================================
+iam-user-trust:
+  - iam-user-allow-ip-address
+

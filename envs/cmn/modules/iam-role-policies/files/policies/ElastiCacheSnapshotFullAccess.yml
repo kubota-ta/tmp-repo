@@ -1,0 +1,18 @@
+Version: "2012-10-17"
+
+Statement:
+  - Effect: "Allow"
+    Action:
+      # SnapshotのRW
+      - "elasticache:CopySnapshot"
+      - "elasticache:CreateSnapshot"
+      - "elasticache:DeleteSnapshot"
+      - "elasticache:DescribeSnapshots"
+      # 作業対象の情報取得
+      - "elasticache:DescribeCacheClusters"
+      - "elasticache:DescribeReplicationGroups"
+      # タグのRW
+      - "elasticache:AddTagsToResource"
+      - "elasticache:ListTagsForResource"
+      - "elasticache:RemoveTagsFromResource"
+    Resource: "*"

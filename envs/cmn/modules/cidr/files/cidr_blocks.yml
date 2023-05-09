@@ -1,0 +1,44 @@
+#
+# CIDR block 定義ファイル
+#
+exnoa:
+  - { "cidr_block": "111.108.92.0/28",   "description": "EXNOA" }
+  - { "cidr_block": "103.254.146.43/32", "description": "DMM GW" }
+  - { "cidr_block": "52.198.89.106/32",  "description": "infra work-gw" }
+
+pf-johren:
+  - { "cidr_block": "18.180.39.56/32",    "description": "Johren SBX1" }
+  - { "cidr_block": "18.176.226.220/32",  "description": "Johren SBX2" }
+  - { "cidr_block": "18.177.205.99/32",   "description": "Johren SBX3" }
+
+pf-nutaku:
+  - { "cidr_block": "209.239.174.2/32",   "description": "nutaku SBX1" }
+
+review-digital-hearts:
+  - { "cidr_block": "101.110.43.28/32",    "description": "DIGITAL HEARTS 1" }
+  - { "cidr_block": "115.125.85.170/32",   "description": "DIGITAL HEARTS 2" }
+  - { "cidr_block": "115.125.85.172/32",   "description": "DIGITAL HEARTS 3" }
+  - { "cidr_block": "122.216.195.20/32",   "description": "DIGITAL HEARTS 4" }
+  - { "cidr_block": "122.216.200.154/32",  "description": "DIGITAL HEARTS 5" }
+  - { "cidr_block": "122.216.200.156/32",  "description": "DIGITAL HEARTS 6" }
+
+review-pitaya-games:
+  - { "cidr_block": "118.243.83.103/32",  "description": "PitayaGames" }
+
+# 社内PC用アドレスグループ
+iam-user-allow-ip-address:
+  - { "cidr_block": "111.108.92.0/28",   "description": "EXNOA" }
+  - { "cidr_block": "52.198.89.106/32",  "description": "infra work-gw" }
+
+
+#
+# AWS公式
+#
+
+quicksight:
+#https://docs.aws.amazon.com/quicksight/latest/user/regions.html
+  - { "cidr_block": "13.113.244.32/27",   "description": "ap-northeast-1" }
+
+# 社外一時許可用
+testcompany:
+  - { "cidr_block": "111.108.92.4/32",    "description": "testcompany" }

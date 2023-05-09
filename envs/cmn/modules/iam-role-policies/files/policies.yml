@@ -1,0 +1,89 @@
+#
+# IAMPolicyリスト定義ファイル
+#
+# 目的の達成に必要な一連のポリシーを定義をする
+#
+# データ形式
+# [feature]:
+#   aws_managed:
+#     - (AWS Managed Policy の ARN のリスト)
+#   customer_managed:
+#     - (Customer Managed Policy の名前のリスト
+#        PolicyDocument は policies/[customer_managed_name].yml と対応する)
+#   available_customer_managed:
+#     - (既存の Customer Managed Policy の名前のリスト)
+#
+
+
+## デプロイ関連
+
+# CodeDeploy 制御用
+codedeploy_operator:
+  aws_managed:
+    - arn:aws:iam::aws:policy/AWSCodeDeployFullAccess
+    - arn:aws:iam::aws:policy/AmazonS3FullAccess
+
+# CodeDeploy Agent 用
+codedeploy_agent:
+  aws_managed:
+    # agentのS3アクセス許可（従来は AmazonS3ReadOnlyAccess をつけていました）
+    - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforAWSCodeDeploy
+
+# 独自デプロイ用（CodeDeploy以外でのデプロイ用）
+owndeploy_operator:
+  aws_managed:
+    # CodeDeploy が行う相当の AutoScaling まわりの操作権限
+    - arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole
+
+# AutoScaling 設定更新用（terraform で更新する場合は terraform 実行権限でOK）
+autoscaling_operator:
+  customer_managed:
+    - AutoScalingUpdateExecutionAccess
+
+# terraform 実行用
+terraform_operator:
+  available_customer_managed:
+    - infra-terraform-AssumeRole
+
+
+## ログ転送関連
+
+# Firehose 転送用
+log_firehose_agent:
+  aws_managed:
+    - arn:aws:iam::aws:policy/AmazonKinesisFirehoseFullAccess
+
+# S3 転送用
+log_s3_agent:
+  aws_managed:
+    - arn:aws:iam::aws:policy/AmazonS3FullAccess
+
+# CloudWatch Logs 転送用
+log_cloudwatchlogs_agent:
+  aws_managed:
+    - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
+
+
+## その他、サービス制御
+
+# RDS バックアップ作業用
+rds_backup:
+  customer_managed:
+    - RDSSnapshotFullAccess
+
+# ElastiCache バックアップ作業用
+elasticache_backup:
+  customer_managed:
+    - ElastiCacheSnapshotFullAccess
+
+# CloudFront キャッシュクリア作業用
+cloudfront_invalidation:
+  customer_managed:
+    - CloudFrontInvalidationFullAccess
+
+# EMR 制御用
+emr_operator:
+  aws_managed:
+    - arn:aws:iam::aws:policy/AmazonEMRFullAccessPolicy_v2
+    - arn:aws:iam::aws:policy/service-role/AmazonEMRServicePolicy_v2
+

@@ -1,0 +1,15 @@
+Policy: {
+    "Version": "2012-10-17",
+    "Statement": [
+        # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html#access-logging-bucket-permissions
+        {
+            "Sid": "PutELBLogs",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::${elb_account_id}:root"
+            },
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::${bucket_id}/elb/*/AWSLogs/${aws_id}/*"
+        }
+    ]
+}
