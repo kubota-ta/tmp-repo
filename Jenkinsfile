@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        TERRAGRUNT_SOURCE = "git@github.com/kubota-ta/tmp-repo"
+        TERRAGRUNT_SOURCE = "git@github.com:kubota-ta/tmp-repo.git"
         TERRAGRUNT_CMD = "terragrunt"
         TERRAGRUNT_ARGS = "envs/cmn/base/"
     }
